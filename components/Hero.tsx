@@ -1,7 +1,11 @@
 
 import React from 'react';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  lang: 'RU' | 'EN';
+}
+
+export const Hero: React.FC<HeroProps> = ({ lang }) => {
   return (
     <div className="w-full flex justify-end items-center pr-0">
       <div className="max-w-4xl text-white mix-blend-difference text-right">
@@ -26,12 +30,14 @@ export const Hero: React.FC = () => {
         
         <div className="relative overflow-visible">
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.1] opacity-80 tracking-tighter block not-italic">
-            Designer & Analyst
+            {lang === 'RU' ? 'Дизайнер и Аналитик' : 'Designer & Analyst'}
           </h2>
         </div>
         
-        <p className="mt-8 text-sm md:text-base font-light opacity-50 max-w-sm ml-auto leading-relaxed tracking-wide uppercase">
-          Creating digital experiences through meticulous research and high-end aesthetic execution.
+        <p className="mt-8 text-sm md:text-base font-light opacity-50 max-w-sm ml-auto leading-relaxed tracking-wide">
+          {lang === 'RU' 
+            ? 'Создание цифрового опыта через пользователские исследования и визуальное исполнение'
+            : 'Creating digital experiences through user research and visual execution'}
         </p>
       </div>
     </div>
