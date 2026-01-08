@@ -1,0 +1,12 @@
+
+{
+  "name": "Igor Bogdanov Portfolio",
+  "description": "High-end UI/UX Designer portfolio with integrated CD instructions.",
+  "deployment": {
+    "platform": "Vercel",
+    "trigger": "GitHub Push",
+    "directory": "dist",
+    "preset": "vite"
+  },
+  "requestFramePermissions": []
+}
