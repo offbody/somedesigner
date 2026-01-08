@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -9,32 +8,31 @@ const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Immediate trigger for the entrance animation
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 100);
+    }, 50);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="relative min-h-screen w-full bg-[#0a0a0a] overflow-hidden">
-      {/* Background Image Container - Removed grayscale and adjusted opacity for clarity */}
+      {/* Background Image Container - Animation duration reduced to 1250ms (from 2500ms) */}
       <div 
-        className={`absolute inset-0 z-0 bg-cover bg-center transition-all duration-[2500ms] ease-out
+        className={`absolute inset-0 z-0 bg-cover bg-center transition-all duration-[1250ms] ease-out
           ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-110 blur-xl'}
         `}
         style={{ 
-          backgroundImage: `url('https://raw.githubusercontent.com/woodhouserec/somedesigner-ru/main/main-bg.png')`, 
+          backgroundImage: `url('https://raw.githubusercontent.com/offbody/somedesigner/main/main-bg.png')`, 
           backgroundPosition: '50% 20%'
         }}
       />
       
-      {/* Film Grain Texture Overlay - Kept very subtle for texture without obscuring photo */}
+      {/* Film Grain Texture Overlay */}
       <div className="absolute inset-0 z-[1] opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-      {/* REMOVED Subtle Gradient Overlay that was darkening the photo */}
-
-      {/* Main Content Layout */}
-      <div className={`relative z-10 flex flex-col min-h-screen transition-all duration-[1500ms] delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      {/* Main Content Layout - Animation duration reduced to 750ms (from 1500ms) */}
+      <div className={`relative z-10 flex flex-col min-h-screen transition-all duration-[750ms] delay-[400ms] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <Navbar />
         
         <main className="flex-grow flex items-center px-10 relative">
