@@ -1,18 +1,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-interface Project {
-  id: string;
-  title: string;
-  typeEN: string;
-  typeRU: string;
-  image: string;
-  color: string;
-}
-
-const projects: Project[] = [
+export const projects = [
   {
     id: '01',
+    slug: 'sekundant',
     title: 'Секундант',
     typeEN: 'Interaction & Development',
     typeRU: 'Комплексный UI/UX для Deftech',
@@ -21,6 +13,7 @@ const projects: Project[] = [
   },
   {
     id: '02',
+    slug: 'zyxo',
     title: 'ZYXO',
     typeEN: 'Design & Development',
     typeRU: 'Лендинг для 1С-аутстаффа',
@@ -29,6 +22,7 @@ const projects: Project[] = [
   },
   {
     id: '03',
+    slug: 'telemost',
     title: 'Телемост',
     typeEN: 'Design & Research',
     typeRU: 'UI/UX приложения для конференц-связи',
@@ -37,6 +31,7 @@ const projects: Project[] = [
   },
   {
     id: '04',
+    slug: 'voochi',
     title: 'VOOCHI',
     typeEN: 'Branding & UI UX',
     typeRU: 'UI/UX стартапа Фонда культурных инициатив',
@@ -47,7 +42,7 @@ const projects: Project[] = [
 
 interface WorksProps {
   lang: 'RU' | 'EN';
-  onProjectClick: (project: Project) => void;
+  onProjectClick?: (slug: string) => void;
 }
 
 export const Works: React.FC<WorksProps> = ({ lang, onProjectClick }) => {
@@ -81,7 +76,6 @@ export const Works: React.FC<WorksProps> = ({ lang, onProjectClick }) => {
   return (
     <section id="work" className="relative w-full bg-[#f1f1f1] text-[#1a1a1a] py-40 px-6 md:px-20 min-h-screen">
       <div className="max-w-[1400px] mx-auto">
-        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-32">
           <div className="lg:col-span-8">
             <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.1] font-normal tracking-tighter max-w-4xl">
@@ -113,7 +107,7 @@ export const Works: React.FC<WorksProps> = ({ lang, onProjectClick }) => {
                 key={project.id}
                 onMouseEnter={() => setActiveProject(index)}
                 onMouseLeave={() => setActiveProject(null)}
-                onClick={() => onProjectClick(project)}
+                onClick={() => onProjectClick?.(project.slug)}
                 className="group relative flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-14 border-b border-black/10 cursor-pointer transition-all duration-500 hover:opacity-30 active:opacity-10"
               >
                 <div className="flex items-end gap-6 transition-transform duration-500 group-hover:translate-x-4">
@@ -128,12 +122,6 @@ export const Works: React.FC<WorksProps> = ({ lang, onProjectClick }) => {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="mt-20 flex justify-center">
-           <button className="px-10 py-5 border border-black/10 rounded-full hover:bg-[#1c1d20] hover:text-white transition-all duration-300 text-sm font-medium uppercase tracking-widest">
-            {lang === 'RU' ? 'Все проекты' : 'More work'}
-           </button>
         </div>
       </div>
 
@@ -163,14 +151,7 @@ export const Works: React.FC<WorksProps> = ({ lang, onProjectClick }) => {
             </div>
           ))}
         </div>
-
-        <div 
-          className="absolute z-10 w-20 h-20 rounded-full flex items-center justify-center text-white text-[10px] font-bold uppercase tracking-widest transition-transform duration-300"
-          style={{ 
-            backgroundColor: '#8b5cf6',
-            transform: `scale(${activeProject !== null ? 1 : 0})` 
-          }}
-        >
+        <div className="absolute z-10 w-20 h-20 rounded-full flex items-center justify-center bg-violet-500 text-white text-[10px] font-bold uppercase tracking-widest">
           {lang === 'RU' ? 'Смотреть' : 'View'}
         </div>
       </div>
