@@ -6,6 +6,7 @@ import { Marquee } from './components/Marquee';
 import { LocationBadge } from './components/LocationBadge';
 import { Works } from './components/Works';
 import { ProjectPage } from './components/ProjectPage';
+import { ContactFooter } from './components/ContactFooter';
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -17,11 +18,11 @@ const App: React.FC = () => {
       setIsLoaded(true);
     }, 50);
     
-    // Перехват кликов для имитации роутинга
     const handlePopState = () => {
       const path = window.location.hash.replace('#/', '') || 'home';
       setCurrentPath(path);
-      window.scrollTo(0, 0);
+      // При смене страницы прокручиваем вверх плавно
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -33,10 +34,28 @@ const App: React.FC = () => {
     };
   }, []);
 
+  // Хэндлер для плавного скролла к якорям
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      if (anchor && anchor.hash && anchor.hash.startsWith('#') && !anchor.hash.startsWith('#/')) {
+        e.preventDefault();
+        const element = document.querySelector(anchor.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
+  }, []);
+
   const navigate = (path: string) => {
     window.location.hash = `#/${path}`;
     setCurrentPath(path);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (currentPath !== 'home') {
@@ -81,15 +100,19 @@ const App: React.FC = () => {
 
       <div className="relative z-20 shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
         <Works lang={lang} onProjectClick={(id) => navigate(id)} />
+        <ContactFooter lang={lang} />
       </div>
 
-      <div className="relative z-20 bg-white py-20 overflow-hidden">
-          <div className="h-[1px] w-full bg-gray-100"></div>
-          <div className="mt-10 opacity-30">
-            <Marquee text={lang === 'RU' ? 'Давайте создавать великое /' : "Let's build something great /"} />
-          </div>
-          <div className="flex justify-center mt-20 pb-10">
-            <p className="text-black/40 text-sm font-light">© 2024 Somedesigner. {lang === 'RU' ? 'Все права защищены.' : 'All rights reserved.'}</p>
+      <div className="relative z-20 bg-[#1c1d20] py-12 overflow-hidden border-t border-white/5">
+          <div className="flex flex-col md:flex-row justify-between items-center px-10 gap-6">
+            <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em]">
+              © 2026 Somedesigner. {lang === 'RU' ? 'Все права защищены.' : 'All rights reserved.'}
+            </p>
+            <div className="flex gap-8">
+               <a href="#" className="text-white/30 text-[10px] font-bold hover:text-white transition-colors uppercase tracking-[0.2em]">LinkedIn</a>
+               <a href="#" className="text-white/30 text-[10px] font-bold hover:text-white transition-colors uppercase tracking-[0.2em]">Behance</a>
+               <a href="#" className="text-white/30 text-[10px] font-bold hover:text-white transition-colors uppercase tracking-[0.2em]">Dribbble</a>
+            </div>
           </div>
       </div>
     </div>

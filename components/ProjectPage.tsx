@@ -29,7 +29,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ projectId, lang, onBac
         <button onClick={onBack} className="text-sm font-medium hover:opacity-50 transition-opacity uppercase tracking-widest">
           {lang === 'RU' ? '← Назад' : '← Back'}
         </button>
-        <div className="text-xs opacity-50 uppercase tracking-widest">Somedesigner © 2024</div>
+        <div className="text-xs opacity-50 uppercase tracking-widest">Somedesigner © 2026</div>
       </nav>
 
       {/* Hero Section */}
@@ -46,7 +46,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ projectId, lang, onBac
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-widest opacity-40 mb-2">{lang === 'RU' ? 'Год' : 'Year'}</p>
-              <p className="text-sm font-medium">2024</p>
+              <p className="text-sm font-medium">2026</p>
             </div>
             <div className="col-span-2 pt-4">
               <p className="text-[10px] uppercase tracking-widest opacity-40 mb-2">{lang === 'RU' ? 'Локация' : 'Location'}</p>
@@ -141,7 +141,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ projectId, lang, onBac
 
       {/* Minimal Footer */}
       <footer className="bg-[#1c1d20] text-white/30 py-10 px-10 border-t border-white/5 flex justify-between text-[10px] uppercase tracking-widest">
-        <div>Somedesigner © 2024</div>
+        <div>Somedesigner © 2026</div>
         <div>{lang === 'RU' ? 'Дизайн и Разработка' : 'Design & Development'}</div>
       </footer>
     </div>
