@@ -5,10 +5,21 @@ import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
 import { LocationBadge } from './components/LocationBadge';
 import { Works } from './components/Works';
+import { ProjectPage } from './components/ProjectPage';
+
+interface Project {
+  id: string;
+  title: string;
+  typeEN: string;
+  typeRU: string;
+  image: string;
+  color: string;
+}
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [lang, setLang] = useState<'RU' | 'EN'>('RU');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -20,7 +31,16 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-[#0a0a0a] overflow-x-hidden">
-      {/* Background Image Container - STATIC (Animation removed as requested) */}
+      {/* Project Detail Overlay */}
+      {selectedProject && (
+        <ProjectPage 
+            project={selectedProject} 
+            lang={lang} 
+            onBack={() => setSelectedProject(null)} 
+        />
+      )}
+
+      {/* Background Image Container */}
       <div 
         className={`fixed inset-0 z-0 bg-cover bg-center transition-opacity duration-[1200ms] cubic-bezier(0.22, 1, 0.36, 1)
           ${isLoaded 
@@ -47,14 +67,23 @@ const App: React.FC = () => {
           <Hero lang={lang} />
         </main>
 
-        <footer className="pb-6 pt-4">
+        <footer className="relative pb-0 pt-4 overflow-visible">
           <Marquee text={lang === 'RU' ? 'Игорь Богданов / Somedesigner /' : 'Igor Bogdanov / Somedesigner /'} />
+          
+          <div 
+            className="w-full h-[340px] pointer-events-none"
+            style={{
+              background: 'rgba(156, 166, 166, 0.01)',
+              backdropFilter: 'blur(32px)',
+              WebkitBackdropFilter: 'blur(32px)'
+            }}
+          />
         </footer>
       </div>
 
       {/* Interactive Works Section */}
       <div className="relative z-20 shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
-        <Works lang={lang} />
+        <Works lang={lang} onProjectClick={(p) => setSelectedProject(p)} />
       </div>
 
       {/* Final Marquee or Footer */}

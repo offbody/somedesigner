@@ -13,33 +13,33 @@ interface Project {
 const projects: Project[] = [
   {
     id: '01',
-    title: 'TWICE',
+    title: 'Секундант',
     typeEN: 'Interaction & Development',
-    typeRU: 'Интерактив и Разработка',
+    typeRU: 'Комплексный UI/UX для Deftech',
     image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800',
     color: '#3b82f6'
   },
   {
     id: '02',
-    title: 'The Damai',
+    title: 'ZYXO',
     typeEN: 'Design & Development',
-    typeRU: 'Дизайн и Разработка',
+    typeRU: 'Лендинг для 1С-аутстаффа',
     image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800',
     color: '#eab308'
   },
   {
     id: '03',
-    title: 'Fabric',
+    title: 'Телемост',
     typeEN: 'Design & Research',
-    typeRU: 'Дизайн и Исследования',
+    typeRU: 'UI/UX приложения для конференц-связи',
     image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800',
     color: '#ef4444'
   },
   {
     id: '04',
-    title: 'Atypikal',
+    title: 'VOOCHI',
     typeEN: 'Branding & UI UX',
-    typeRU: 'Брендинг и UI/UX',
+    typeRU: 'UI/UX стартапа Фонда культурных инициатив',
     image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800',
     color: '#8b5cf6'
   }
@@ -47,9 +47,10 @@ const projects: Project[] = [
 
 interface WorksProps {
   lang: 'RU' | 'EN';
+  onProjectClick: (project: Project) => void;
 }
 
-export const Works: React.FC<WorksProps> = ({ lang }) => {
+export const Works: React.FC<WorksProps> = ({ lang, onProjectClick }) => {
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [smoothPos, setSmoothPos] = useState({ x: 0, y: 0 });
@@ -83,10 +84,10 @@ export const Works: React.FC<WorksProps> = ({ lang }) => {
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-32">
           <div className="lg:col-span-8">
-            <h2 className="text-[clamp(1.8rem,4vw,3.5rem)] leading-[1.2] font-normal tracking-tight max-w-3xl">
+            <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.1] font-normal tracking-tighter max-w-4xl">
               {lang === 'RU' 
-                ? 'Помогаю брендам в достижении поставленных целей в динамично развивающейся цифровой среде'
-                : 'Helping brands achieve their goals in a rapidly evolving digital environment'}
+                ? 'Помогаю брендам достигать цели в цифровой среде'
+                : 'Helping brands achieve their goals in a digital environment'}
             </h2>
           </div>
           <div className="lg:col-span-4 flex flex-col justify-end">
@@ -95,8 +96,8 @@ export const Works: React.FC<WorksProps> = ({ lang }) => {
                 ? 'Продукты с фокусом на пользовательские исследования и data-driven подход'
                 : 'Products with a focus on user research and data-driven approach'}
             </p>
-            <button className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-[#1c1d20] text-white flex items-center justify-center text-sm font-medium transition-transform duration-500 hover:scale-110 active:scale-95 uppercase tracking-wider">
-              {lang === 'RU' ? 'Обо мне' : 'About me'}
+            <button className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-[#1c1d20] text-white flex items-center justify-center text-sm font-medium transition-transform duration-500 hover:scale-110 active:scale-95 uppercase tracking-wider text-center p-4">
+              {lang === 'RU' ? 'Связь со мной' : 'Get in touch'}
             </button>
           </div>
         </div>
@@ -112,13 +113,14 @@ export const Works: React.FC<WorksProps> = ({ lang }) => {
                 key={project.id}
                 onMouseEnter={() => setActiveProject(index)}
                 onMouseLeave={() => setActiveProject(null)}
+                onClick={() => onProjectClick(project)}
                 className="group relative flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-14 border-b border-black/10 cursor-pointer transition-all duration-500 hover:opacity-30 active:opacity-10"
               >
-                <div className="flex items-center gap-6">
-                   <span className="text-xs font-mono opacity-20 group-hover:opacity-100 transition-opacity">{project.id}</span>
-                   <h3 className="text-4xl md:text-8xl lg:text-[7vw] font-normal tracking-tighter transition-transform duration-500 group-hover:translate-x-4">
+                <div className="flex items-end gap-6 transition-transform duration-500 group-hover:translate-x-4">
+                   <h3 className="text-4xl md:text-8xl lg:text-[7vw] font-normal tracking-tighter">
                     {project.title}
                   </h3>
+                  <span className="text-xs md:text-sm opacity-20 group-hover:opacity-100 transition-opacity mb-2 md:mb-6">{project.id}</span>
                 </div>
                 <span className="text-sm font-medium opacity-40 mt-4 md:mt-0 uppercase tracking-widest group-hover:translate-x-[-1rem] transition-transform duration-500">
                   {lang === 'RU' ? project.typeRU : project.typeEN}
